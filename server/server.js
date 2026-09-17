@@ -2953,6 +2953,229 @@ app.post(
     }
 );
 
+
+/* =====================================================
+   CUSTOMER TODAY'S ORDERS
+===================================================== */
+
+app.get(
+    "/api/orders/history/today",
+    async (req, res) => {
+
+        try {
+
+            /* -----------------------------
+               CUSTOMER PHONE
+            ----------------------------- */
+
+            const phone =
+                String(
+                    req.query.phone || ""
+                )
+                .replace(/\D/g, "")
+                .trim();
+
+
+            if (phone.length < 10) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Valid customer phone number is required."
+                });
+
+            }
+
+
+            /* -----------------------------
+               DATE RANGE
+            ----------------------------- */
+
+            const from =
+                String(
+                    req.query.from || ""
+                ).trim();
+
+            const to =
+                String(
+                    req.query.to || ""
+                ).trim();
+
+
+            if (!from || !to) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Date range is required."
+                });
+
+            }
+
+
+            /* -----------------------------
+               GET ONLY THIS CUSTOMER'S
+               ORDERS FOR TODAY
+            ----------------------------- */
+
+            const ordersResult =
+                await pool.query(
+                    `
+                    SELECT
+                        o.id,
+                        o.order_number,
+                        o.order_type,
+                        o.table_number,
+                        o.customer_name,
+                        o.customer_phone,
+                        o.subtotal,
+                        o.tax,
+                        o.total,
+                        o.status,
+                        o.created_at,
+                        o.updated_at
+
+                    FROM orders o
+
+                    WHERE
+                        regexp_replace(
+                            COALESCE(
+                                o.customer_phone,
+                                ''
+                            ),
+                            '[^0-9]',
+                            '',
+                            'g'
+                        ) = $1
+
+                    AND o.created_at >= $2
+                    AND o.created_at < $3
+
+                    ORDER BY
+                        o.created_at DESC
+                    `,
+                    [
+                        phone,
+                        from,
+                        to
+                    ]
+                );
+
+
+            /* -----------------------------
+               LOAD ITEMS
+            ----------------------------- */
+
+            const orders =
+                await Promise.all(
+                    ordersResult.rows.map(
+                        async order => {
+
+                            const itemsResult =
+                                await pool.query(
+                                    `
+                                    SELECT
+                                        item_name,
+                                        quantity,
+                                        price,
+                                        total
+
+                                    FROM order_items
+
+                                    WHERE
+                                        order_id = $1
+
+                                    ORDER BY
+                                        id ASC
+                                    `,
+                                    [
+                                        order.id
+                                    ]
+                                );
+
+
+                            return {
+                                ...order,
+
+                                subtotal:
+                                    Number(
+                                        order.subtotal
+                                    ),
+
+                                tax:
+                                    Number(
+                                        order.tax
+                                    ),
+
+                                total:
+                                    Number(
+                                        order.total
+                                    ),
+
+                                items:
+                                    itemsResult.rows.map(
+                                        item => ({
+                                            ...item,
+
+                                            quantity:
+                                                Number(
+                                                    item.quantity
+                                                ),
+
+                                            price:
+                                                Number(
+                                                    item.price
+                                                ),
+
+                                            total:
+                                                Number(
+                                                    item.total
+                                                )
+                                        })
+                                    )
+                            };
+
+                        }
+                    )
+                );
+
+
+            /* -----------------------------
+               RESPONSE
+            ----------------------------- */
+
+            res.json({
+
+                success: true,
+
+                orders
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "CUSTOMER ORDER HISTORY ERROR:",
+                error
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load today's orders."
+
+            });
+
+        }
+
+    }
+);
+
+
 /* =====================================================
    GET ORDER
 ===================================================== */
