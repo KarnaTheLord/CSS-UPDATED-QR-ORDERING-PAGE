@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0f"
+    >
+
+    <title>Restaurant Menu</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <!-- Premium Interactive Background -->
+
+    <div class="client-scene" aria-hidden="true">
+
+        <div class="scene-grid"></div>
+
+        <div class="scene-haze haze-one"></div>
+        <div class="scene-haze haze-two"></div>
+
+        <div class="scene-ribbon ribbon-one">
+            <span></span>
+        </div>
+
+        <div class="scene-ribbon ribbon-two">
+            <span></span>
+        </div>
+
+        <div class="scene-ribbon ribbon-three">
+            <span></span>
+        </div>
+
+        <div class="scene-orbit orbit-one"></div>
+        <div class="scene-orbit orbit-two"></div>
+
+        <div class="scene-star star-one"></div>
+        <div class="scene-star star-two"></div>
+        <div class="scene-star star-three"></div>
+
+    </div>
+
+
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+    <!-- Main App -->
+    <main class="app">
+
+
+        <!-- =====================================================
+     TODAY'S ORDERS / TRACK ORDER
+===================================================== -->
+
+<div
+    class="track-orders-overlay hidden"
+    id="trackOrdersOverlay"
+>
+
+    <div class="track-orders-backdrop"
+         id="trackOrdersBackdrop">
+    </div>
+
+
+    <section
+        class="track-orders-panel"
+        aria-labelledby="trackOrdersTitle"
+    >
+
+        <div class="track-orders-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    ORDER HISTORY
+                </span>
+
+                <h2 id="trackOrdersTitle">
+                    Today's orders
+                </h2>
+
+                <p>
+                    Select an order to view its live status.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="track-orders-close"
+                id="trackOrdersClose"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="track-orders-list"
+            id="trackOrdersList"
+        >
+
+            <div class="track-orders-loading">
+                <div class="loader"></div>
+
+                <p>
+                    Loading today's orders...
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- =====================================================
+     PREMIUM CLIENT HEADER
+===================================================== -->
+
+<div class="client-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="client-sidebar">
+
+        <div class="sidebar-brand">
+
+            <div
+                class="sidebar-logo"
+                id="restaurantLogo"
+            >
+                🍽️
+            </div>
+
+            <div class="sidebar-brand-text">
+
+                <strong id="restaurantName">
+                    My Restaurant
+                </strong>
+
+                <span>
+                    RESTAURANT
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-heading">
+                ORDER
+            </span>
+
+            <button
+                type="button"
+                class="sidebar-link active"
+                data-scroll-target="hero"
+            >
+                <span>▦</span>
+                Discover
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                data-scroll-target="orderSection"
+            >
+                <span>🍽</span>
+                Order
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                id="sidebarCartButton"
+            >
+                <span>🛒</span>
+                Cart
+
+                <span
+                    class="sidebar-cart-count"
+                    id="sidebarCartCount"
+                >
+                    0
+                </span>
+            </button>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-heading">
+                EXPERIENCE
+            </span>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                data-scroll-target="orderSection"
+            >
+                <span>✦</span>
+                Dine In
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                data-scroll-target="orderSection"
+            >
+                <span>🥡</span>
+                Takeaway
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                id="trackOrderNav"
+            >
+                <span>📍</span>
+                Track Order
+            </button>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-promo">
+
+                <span>
+                    ✦ FRESH EVERY DAY
+                </span>
+
+                <strong>
+                    Great food.
+                    <br>
+                    Better moments.
+                </strong>
+
+                <small>
+                    Order directly from
+                    your table.
+                </small>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <div class="client-main">
+
+
+        <!-- TOP BAR -->
+        
+
+        <!-- HERO -->
+
+        <section
+            class="hero premium-client-hero"
+            id="hero"
+        >
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+                    ● SERVING FRESH TONIGHT
+                </span>
+
+
+                <h2>
+                    Craving
+                    <span>
+                        something delicious.
+                    </span>
+                </h2>
+
+
+                <p id="restaurantDescription">
+
+                    Explore our menu and order your
+                    favourites in just a few taps.
+
+                </p>
+
+
+                <div class="hero-feature">
+
+                    <div class="feature-number">
+                        01
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Fresh meals
+                        </strong>
+
+                        <p>
+                            Carefully prepared
+                            for every order.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                
+
+
+                <div
+                    class="restaurant-contact"
+                    id="restaurantContact"
+                >
+
+                    <span id="restaurantAddress"></span>
+
+                    <span id="restaurantPhone"></span>
+
+                    <span id="restaurantEmail"></span>
+
+                    <span id="restaurantHours"></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- 3D FOOD AREA -->
+
+            <div
+                class="hero-food premium-food-stage"
+                id="heroFood"
+            >
+
+                <div class="food-stage-glow"></div>
+
+                <div
+                    class="food-stage-ring ring-large"
+                ></div>
+
+                <div
+                    class="food-stage-ring ring-small"
+                ></div>
+
+
+                <div
+                    class="hero-food-card"
+                    data-depth="1.2"
+                >
+
+                    <span class="editor-label">
+                        CHEF'S PICK
+                    </span>
+
+
+                    <div class="hero-food-image">
+
+                        <span>
+                            🍛
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-food-info">
+
+                        <strong>
+                            Signature Meal
+                        </strong>
+
+                        <span>
+                            Fresh • Hot • Delicious
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="food-floating-tag tag-one"
+                    data-depth="2"
+                >
+                    🔥 Fresh
+                </div>
+
+
+                <div
+                    class="food-floating-tag tag-two"
+                    data-depth="2.5"
+                >
+                    ⭐ Popular
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Order Type -->
+        <section
+            class="order-section"
+            id="orderSection"
+        >
+
+            <div class="section-heading">
+
+                <span>
+                    HOW WOULD YOU LIKE TO ORDER?
+                </span>
+
+                <h2>
+                    Choose your experience
+                </h2>
+
+            </div>
+
+
+            <div class="order-options">
+
+                <button
+                    class="order-card"
+                    data-order-type="dine_in"
+                    type="button"
+                >
+
+                    <div class="order-card-icon">
+                        🍽️
+                    </div>
+
+                    <div class="order-card-content">
+
+                        <span class="small-label">
+                            AT THE RESTAURANT
+                        </span>
+
+                        <h3>
+                            Dine In
+                        </h3>
+
+                        <p>
+                            Enjoy your meal at your table.
+                        </p>
+
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="order-card"
+                    data-order-type="takeaway"
+                    type="button"
+                >
+
+                    <div class="order-card-icon">
+                        🥡
+                    </div>
+
+                    <div class="order-card-content">
+
+                        <span class="small-label">
+                            TAKE IT WITH YOU
+                        </span>
+
+                        <h3>
+                            Takeaway
+                        </h3>
+
+                        <p>
+                            Order now and pick it up.
+                        </p>
+
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Customer Information -->
+        <section
+            class="customer-section hidden"
+            id="customerSection"
+        >
+
+            <div class="section-heading">
+
+                <span>
+                    ALMOST THERE
+                </span>
+
+                <h2 id="customerTitle">
+                    Your details
+                </h2>
+
+            </div>
+
+
+            <div class="customer-card">
+
+                <div
+                    class="field"
+                    id="tableField"
+                >
+
+                    <label for="tableNumber">
+                        Table Number
+                    </label>
+
+                    <select id="tableNumber">
+
+                        <option value="">
+                            Select your table
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="customerName">
+                        Name
+                    </label>
+
+                    <input
+                        id="customerName"
+                        type="text"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="customerPhone">
+                        Mobile Number
+                    </label>
+
+                    <input
+                        id="customerPhone"
+                        type="tel"
+                        placeholder="Enter your mobile number"
+                        autocomplete="tel"
+                    >
+
+                </div>
+
+
+                <div
+                    class="field"
+                    id="pickupField"
+                >
+
+                    <label for="pickupTime">
+                        Pickup Time
+                        <span>(Optional)</span>
+                    </label>
+
+                    <input
+                        id="pickupTime"
+                        type="time"
+                    >
+
+                </div>
+
+
+                <button
+                    class="primary-button"
+                    id="continueButton"
+                    type="button"
+                >
+                    Continue to Menu
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Menu -->
+        <section
+            class="menu-section hidden"
+            id="menuSection"
+        >
+
+            <div class="menu-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        OUR MENU
+                    </span>
+
+                    <h2>
+                        What are you craving?
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- Categories -->
+            <div
+                class="categories"
+                id="categories"
+            >
+                <!-- Generated by JS -->
+            </div>
+
+
+            <!-- Menu Items -->
+            <div
+                class="menu-items"
+                id="menuItems"
+            >
+                <!-- Generated by JS -->
+            </div>
+
+        </section>
+
+
+        <!-- Floating Cart -->
+
+<button
+    class="floating-cart hidden"
+    id="floatingCart"
+    type="button"
+>
+
+    <div class="floating-cart-left">
+
+        <div class="floating-cart-icon">
+            🛒
+        </div>
+
+        <div>
+
+            <strong id="floatingCartCount">
+                0 Items
+            </strong>
+
+            <span>
+                View your order
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="floating-cart-right">
+
+        <strong id="floatingCartTotal">
+            ₹0
+        </strong>
+
+        <span>
+            →
+        </span>
+
+    </div>
+
+</button>
+
+
+<!-- Cart Overlay -->
+
+<div
+    class="cart-overlay hidden"
+    id="cartOverlay"
+>
+
+    <div
+        class="cart-backdrop"
+        id="cartBackdrop"
+    ></div>
+
+
+    <div class="cart-panel">
+
+        <div class="cart-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    YOUR ORDER
+                </span>
+
+                <h2>
+                    Your Cart
+                </h2>
+
+            </div>
+
+
+            <button
+                class="cart-close"
+                id="cartClose"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="cart-items"
+            id="cartItems"
+        >
+        </div>
+
+
+        <div class="cart-summary">
+
+            <div>
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="cartSubtotal">
+                    ₹0
+                </strong>
+            </div>
+
+
+            <div>
+                <span>
+                    Tax
+                </span>
+
+                <strong id="cartTax">
+                    ₹0
+                </strong>
+            </div>
+
+
+            <div class="cart-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="cartTotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-button"
+            id="checkoutButton"
+            type="button"
+        >
+            Continue to Checkout
+            <span>→</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- Checkout Overlay -->
+
+<div
+    class="checkout-overlay hidden"
+    id="checkoutOverlay"
+>
+
+    <div
+        class="cart-backdrop"
+        id="checkoutBackdrop"
+    ></div>
+
+
+    <div class="checkout-panel">
+
+        <div class="cart-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    FINAL STEP
+                </span>
+
+                <h2>
+                    Confirm Order
+                </h2>
+
+            </div>
+
+
+            <button
+                class="cart-close"
+                id="checkoutClose"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="checkout-order-type">
+
+            <div>
+                <span>
+                    Order Type
+                </span>
+
+                <strong
+                    id="checkoutOrderType"
+                >
+                    Dine In
+                </strong>
+            </div>
+
+
+            <div id="checkoutTableBox">
+
+                <span>
+                    Table
+                </span>
+
+                <strong
+                    id="checkoutTable"
+                >
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="checkout-form">
+
+            <div class="checkout-field">
+
+                <label for="checkoutName">
+                    Name
+                </label>
+
+                <input
+                    id="checkoutName"
+                    type="text"
+                    placeholder="Your name"
+                >
+
+            </div>
+
+
+            <div class="checkout-field">
+
+                <label for="checkoutPhone">
+                    Mobile Number
+                </label>
+
+                <input
+                    id="checkoutPhone"
+                    type="tel"
+                    placeholder="Your mobile number"
+                >
+
+            </div>
+
+
+            <div
+                class="checkout-field"
+                id="checkoutPickupBox"
+            >
+
+                <label for="checkoutPickup">
+                    Pickup Time
+                    <span>(Optional)</span>
+                </label>
+
+                <input
+                    id="checkoutPickup"
+                    type="time"
+                >
+
+            </div>
+
+
+            <div class="checkout-field">
+
+                <label for="checkoutNotes">
+                    Special Instructions
+                    <span>(Optional)</span>
+                </label>
+
+                <textarea
+                    id="checkoutNotes"
+                    rows="3"
+                    placeholder="Less spicy, no onions, etc."
+                ></textarea>
+
+            </div>
+
+        </div>
+
+
+        <div class="checkout-final">
+
+            <span>
+                You'll pay
+            </span>
+
+            <strong
+                id="checkoutTotal"
+            >
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <button
+            class="primary-button"
+            id="placeOrderButton"
+            type="button"
+        >
+            Place Order
+            <span>✓</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+    <!-- Order Success -->
+
+    <div
+        class="success-overlay hidden"
+        id="successOverlay"
+    >
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <span class="section-kicker">
+                ORDER CONFIRMED
+            </span>
+
+            <h2>
+                Thank you!
+            </h2>
+
+            <p>
+                Your order has been successfully placed.
+            </p>
+
+
+            <div class="success-order-number">
+
+                <span>
+                    Order Number
+                </span>
+
+                <strong
+                    id="successOrderNumber"
+                >
+                    —
+                </strong>
+
+            </div>
+
+
+            <div
+                class="success-bill"
+                id="successBill"
+            >
+            </div>
+
+
+            <button
+                class="primary-button"
+                id="trackOrderButton"
+                type="button"
+            >
+                📍 Track My Order
+                <span>→</span>
+            </button>
+
+            <button
+                class="primary-button"
+                id="newOrderButton"
+                type="button"
+            >
+                Done
+            </button>
+
+        </div>
+
+    </div>
+
+
+        <!-- Loading -->
+        <div
+            class="loading hidden"
+            id="loading"
+        >
+
+            <div class="loader"></div>
+
+            <p>
+                Preparing your menu...
+            </p>
+
+        </div>
+
+
+        <!-- Toast -->
+        <div
+            class="toast"
+            id="toast"
+            role="status"
+            aria-live="polite"
+        >
+        </div>
+
+    </main>
+
+    <script>
+        (() => {
+
+            const hero =
+                document.getElementById("heroFood");
+
+            const scrollButtons =
+                document.querySelectorAll(
+                    "[data-scroll-target]"
+                );
+
+            /*
+            * ----------------------------------------------------
+            * 3D HERO PARALLAX
+            * ----------------------------------------------------
+            */
+
+            if (hero) {
+
+                const layers =
+                    hero.querySelectorAll(
+                        "[data-depth]"
+                    );
+
+                let frame = null;
+
+                hero.addEventListener(
+                    "pointermove",
+                    (event) => {
+
+                        const rect =
+                            hero.getBoundingClientRect();
+
+                        const x =
+                            (event.clientX - rect.left)
+                            / rect.width - 0.5;
+
+                        const y =
+                            (event.clientY - rect.top)
+                            / rect.height - 0.5;
+
+                        if (frame) {
+                            cancelAnimationFrame(frame);
+                        }
+
+                        frame =
+                            requestAnimationFrame(() => {
+
+                                layers.forEach(
+                                    (layer) => {
+
+                                        const depth =
+                                            Number(
+                                                layer.dataset.depth || 1
+                                            );
+
+                                        layer.style.setProperty(
+                                            "--px",
+                                            `${x * depth * 26}px`
+                                        );
+
+                                        layer.style.setProperty(
+                                            "--py",
+                                            `${y * depth * 20}px`
+                                        );
+
+                                    }
+                                );
+
+                            });
+
+                    }
+                );
+
+
+                hero.addEventListener(
+                    "pointerleave",
+                    () => {
+
+                        layers.forEach(
+                            (layer) => {
+
+                                layer.style.setProperty(
+                                    "--px",
+                                    "0px"
+                                );
+
+                                layer.style.setProperty(
+                                    "--py",
+                                    "0px"
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /*
+            * ----------------------------------------------------
+            * SIDEBAR / HERO NAVIGATION
+            * ----------------------------------------------------
+            */
+
+            scrollButtons.forEach(
+                (button) => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const targetId =
+                                button.dataset.scrollTarget;
+
+                            const target =
+                                document.getElementById(
+                                    targetId
+                                );
+
+                            if (!target) {
+                                return;
+                            }
+
+                            target.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start"
+                            });
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /*
+            * ----------------------------------------------------
+            * COMMAND-K SEARCH FOCUS
+            * ----------------------------------------------------
+            */
+
+            const search =
+                document.getElementById(
+                    "clientSearch"
+                );
+
+            if (search) {
+
+                document.addEventListener(
+                    "keydown",
+                    (event) => {
+
+                        if (
+                            (event.metaKey || event.ctrlKey) &&
+                            event.key.toLowerCase() === "k"
+                        ) {
+
+                            event.preventDefault();
+
+                            search.focus();
+
+                        }
+
+                    }
+                );
+
+            }
+
+            const trackOrderNav =
+                    document.getElementById("trackOrderNav");
+
+                if (trackOrderNav) {
+                    trackOrderNav.addEventListener("click", () => {
+                        const trackButton =
+                            document.getElementById("trackOrderButton");
+
+                        if (trackButton) {
+                            trackButton.click();
+                        } else {
+                            showToast?.("Track your order after placing one.");
+                        }
+                    });
+                }
+
+            const sidebarCartButton =
+                    document.getElementById("sidebarCartButton");
+
+                if (sidebarCartButton) {
+                    sidebarCartButton.addEventListener("click", () => {
+
+                        const cartButton =
+                            document.getElementById("cartButton");
+
+                        if (cartButton) {
+                            cartButton.click();
+                        }
+
+                    });
+                }
+
+        })();
+    </script>
+
+<script src="/js/menu.js?v=2"></script>
+
+</body>
+</html>

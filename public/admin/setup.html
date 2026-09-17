@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Set Up Admin</title>
+    <link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+<body class="admin-login-page">
+    <main class="login-container">
+        <div class="login-card">
+            <div class="admin-logo">🔐</div>
+            <span class="login-label">FIRST-TIME SETUP</span>
+            <h1>Create your admin account</h1>
+            <p>Choose your own username, password and recovery email.</p>
+
+            <form id="setupForm">
+                <div class="admin-field">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" required autocomplete="username" placeholder="e.g. restaurantadmin" minlength="3" maxlength="40">
+                </div>
+
+                <div class="admin-field">
+                    <label for="recoveryEmail">Recovery Email</label>
+                    <input id="recoveryEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+                    <small>Used for password recovery.</small>
+                </div>
+
+                <div class="admin-field">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" required autocomplete="new-password" minlength="8" placeholder="At least 8 characters">
+                </div>
+
+                <div class="admin-field">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input id="confirmPassword" type="password" required autocomplete="new-password" minlength="8" placeholder="Re-enter password">
+                </div>
+
+                <button class="admin-primary" type="submit" id="setupButton">Create Admin Account →</button>
+            </form>
+
+            <p class="error-message" id="errorMessage"></p>
+            <p class="success-message" id="successMessage"></p>
+
+            <div class="login-links">
+                <a href="/admin/login.html">Back to login</a>
+            </div>
+        </div>
+    </main>
+    <script src="/admin/js/setup.js"></script>
+</body>
+</html>

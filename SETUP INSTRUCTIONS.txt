@@ -1,0 +1,93 @@
+QR RESTAURANT ORDERING SYSTEM - FINAL UPDATED VERSION
+=====================================================
+
+WHAT IS UPDATED
+---------------
+1. Admin can create a personal username, password and recovery email on first setup.
+2. Existing legacy database with exactly one old admin account and no recovery email is treated as first-time setup, so the old credentials can be replaced without deleting restaurant data.
+3. Forgot Password page accepts the admin username or recovery email.
+4. Password reset links are single-use and expire after 15 minutes.
+5. Resetting the password invalidates active admin sessions.
+6. Dashboard defaults to TODAY'S ORDERS.
+7. Selecting a date shows ONLY orders from that date.
+8. All/New/Accepted/Preparing/Ready/Completed/Cancelled counts follow the selected date.
+9. Today's, this week's and this month's revenue are shown; cancelled orders are excluded from revenue.
+10. Existing categories, menu items, orders, tables, restaurant settings and uploaded logos are preserved.
+
+RUN THE PROJECT
+---------------
+1. Open the project folder in VS Code.
+2. Open a terminal in the server folder:
+
+   cd server
+
+3. Install dependencies:
+
+   npm install
+
+4. Start the server:
+
+   npm start
+
+5. Open:
+
+   http://localhost:3000/admin/login.html
+
+FIRST ADMIN SETUP
+-----------------
+If this project contains the original legacy admin database, the login page will offer the setup flow.
+Open:
+
+   http://localhost:3000/admin/setup.html
+
+Create your own:
+- Username
+- Password
+- Recovery Email
+
+The setup replaces the old legacy admin credentials while keeping the restaurant data.
+
+PASSWORD RECOVERY EMAIL
+-----------------------
+Password recovery requires SMTP settings.
+
+1. Copy:
+
+   server/.env.example
+
+   to:
+
+   server/.env
+
+2. Fill in:
+
+   SMTP_HOST
+   SMTP_PORT
+   SMTP_SECURE
+   SMTP_USER
+   SMTP_PASS
+   MAIL_FROM
+   APP_BASE_URL
+
+For local testing, APP_BASE_URL can remain:
+
+   http://localhost:3000
+
+For a deployed website, APP_BASE_URL must be the real public HTTPS address so reset links point to the deployed site.
+
+IMPORTANT
+---------
+Do not share server/.env or your SMTP password.
+
+FINAL CHECK PERFORMED
+---------------------
+JavaScript syntax checks were run for:
+- server/server.js
+- server/database.js
+- public/admin/js/dashboard.js
+- public/admin/js/login.js
+- public/admin/js/setup.js
+- public/admin/js/forgot-password.js
+- public/admin/js/reset-password.js
+
+The package intentionally does NOT include node_modules. Run npm install before starting the project.

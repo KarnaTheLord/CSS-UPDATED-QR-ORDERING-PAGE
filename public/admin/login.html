@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+
+    <title>Admin Login | Royal Bites</title>
+
+    <link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+
+<body class="admin-login-page">
+
+    <!-- Animated premium background -->
+    <div class="login-scene" aria-hidden="true">
+
+        <div class="login-glow login-glow-1"></div>
+        <div class="login-glow login-glow-2"></div>
+
+        <div class="login-ribbon login-ribbon-1">
+            <span></span>
+        </div>
+
+        <div class="login-ribbon login-ribbon-2">
+            <span></span>
+        </div>
+
+        <div class="login-ribbon login-ribbon-3">
+            <span></span>
+        </div>
+
+        <div class="login-ribbon login-ribbon-4">
+            <span></span>
+        </div>
+
+        <div class="login-particle particle-1"></div>
+        <div class="login-particle particle-2"></div>
+        <div class="login-particle particle-3"></div>
+        <div class="login-particle particle-4"></div>
+        <div class="login-particle particle-5"></div>
+
+    </div>
+
+    <main class="login-container">
+
+        <div class="login-card">
+
+            <div class="admin-logo">🍽️</div>
+
+            <span class="login-label">RESTAURANT ADMIN</span>
+
+            <h1>Welcome back</h1>
+
+            <p>Manage your menu and orders.</p>
+
+            <form id="loginForm">
+
+                <div class="admin-field">
+                    <label for="username">Username</label>
+
+                    <input
+                        id="username"
+                        type="text"
+                        required
+                        autocomplete="username"
+                        placeholder="Enter username"
+                    >
+                </div>
+
+                <div class="admin-field">
+                    <label for="password">Password</label>
+
+                    <input
+                        id="password"
+                        type="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="Enter password"
+                    >
+                </div>
+
+                <button
+                    class="admin-primary"
+                    type="submit"
+                    id="loginButton"
+                >
+                    <span>Login</span>
+                    <span class="login-arrow">→</span>
+                </button>
+
+            </form>
+
+            <p class="error-message" id="errorMessage"></p>
+
+            <div class="login-links">
+                <a href="/admin/forgot-password.html">
+                    Forgot password?
+                </a>
+
+                <span>•</span>
+
+                <a href="/admin/setup.html" id="setupLink">
+                    Create admin account
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="/admin/js/login.js"></script>
+
+</body>
+
+</html>

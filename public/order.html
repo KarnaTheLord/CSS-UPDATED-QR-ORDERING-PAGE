@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Your Order</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        :root {
+            --bg: #0d0b0b;
+            --card: #171414;
+            --card-light: #201b1b;
+            --text: #ffffff;
+            --muted: #a9a1a1;
+            --accent: #ff943f;
+            --accent-light: #ffb16b;
+            --success: #35d59a;
+            --danger: #ff6262;
+            --border: rgba(255,255,255,0.08);
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #291817 0%,
+                    #0d0b0b 48%
+                );
+
+            color: var(--text);
+
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        .page {
+
+            width:
+                min(
+                    720px,
+                    calc(100% - 30px)
+                );
+
+            margin:
+                30px auto 60px;
+        }
+
+
+        /* HEADER */
+
+        .header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .logo {
+
+            width: 58px;
+
+            height: 58px;
+
+            border-radius: 17px;
+
+            display: grid;
+
+            place-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent-light),
+                    var(--accent)
+                );
+
+            color: #111;
+
+            font-size: 26px;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+        }
+
+
+        .logo img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+
+        .header h1 {
+
+            margin: 0;
+
+            font-size: 25px;
+        }
+
+
+        .header p {
+
+            margin: 4px 0 0;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* CARD */
+
+        .card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--card-light),
+                    var(--card)
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+
+            padding: 24px;
+
+            margin-bottom: 16px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,0.18);
+        }
+
+
+        .label {
+
+            color: var(--accent-light);
+
+            font-size: 9px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+        }
+
+
+        /* ORDER NUMBER */
+
+        .order-number {
+
+            margin-top: 8px;
+
+            font-size: 27px;
+
+            font-weight: 900;
+        }
+
+
+        /* STATUS */
+
+        .status-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+
+        .status-title {
+
+            margin:
+                7px 0 0;
+
+            font-size: 24px;
+        }
+
+
+        .status-title.cancelled {
+
+            color: var(--danger);
+        }
+
+
+        .status-icon {
+
+            width: 54px;
+
+            height: 54px;
+
+            border-radius: 17px;
+
+            display: grid;
+
+            place-items: center;
+
+            background:
+                rgba(255,148,63,0.12);
+
+            font-size: 24px;
+        }
+
+
+        .status-message {
+
+            margin:
+                12px 0 28px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* PROGRESS */
+
+        .progress {
+
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 5px;
+        }
+
+
+        .progress-bg {
+
+            position: absolute;
+
+            top: 17px;
+
+            left: 10%;
+
+            right: 10%;
+
+            height: 3px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            z-index: 0;
+        }
+
+
+        .progress-fill {
+
+            position: absolute;
+
+            top: 17px;
+
+            left: 10%;
+
+            height: 3px;
+
+            width: 0%;
+
+            max-width: 80%;
+
+            background: var(--accent);
+
+            z-index: 1;
+
+            transition: width 0.5s ease;
+        }
+
+
+        .step {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #777;
+
+            font-size: 9px;
+
+            text-align: center;
+        }
+
+
+        .circle {
+
+            width: 36px;
+
+            height: 36px;
+
+            border-radius: 50%;
+
+            display: grid;
+
+            place-items: center;
+
+            background: #242020;
+
+            border:
+                2px solid #302a2a;
+
+            font-size: 12px;
+
+            transition: 0.3s;
+        }
+
+
+        .step.completed {
+
+            color: #ddd;
+        }
+
+
+        .step.completed .circle {
+
+            background: var(--accent);
+
+            border-color: var(--accent);
+
+            color: #111;
+        }
+
+
+        .step.active .circle {
+
+            box-shadow:
+                0 0 0 5px
+                rgba(255,148,63,0.12);
+        }
+
+
+        /* ITEMS */
+
+        .section-title {
+
+            margin:
+                7px 0 20px;
+
+            font-size: 21px;
+        }
+
+
+        .item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 14px 0;
+
+            border-bottom:
+                1px solid var(--border);
+
+            font-size: 13px;
+        }
+
+
+        .item-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+        }
+
+
+        .quantity {
+
+            color:
+                var(--accent-light);
+
+            font-weight: 900;
+        }
+
+
+        /* BILL */
+
+        .bill {
+
+            margin-top: 15px;
+        }
+
+
+        .bill-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 7px 0;
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .bill-total {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 8px;
+
+            padding-top: 15px;
+
+            border-top:
+                1px solid var(--border);
+
+            font-size: 19px;
+
+            font-weight: 900;
+        }
+
+
+        .bill-total strong {
+
+            color: var(--accent-light);
+        }
+
+
+        /* INFO */
+
+        .info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-top: 15px;
+        }
+
+
+        .info {
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid var(--border);
+        }
+
+
+        .info.full {
+
+            grid-column:
+                1 / -1;
+        }
+
+
+        .info span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        .info strong {
+
+            display: block;
+
+            margin-top: 5px;
+
+            font-size: 12px;
+        }
+
+
+        /* BUTTONS */
+
+        .actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 5px;
+        }
+
+
+        .actions button {
+
+            flex: 1;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent-light),
+                    var(--accent)
+                );
+
+            color: #111;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            font-size: 12px;
+        }
+
+
+        .actions .secondary {
+
+            background:
+                rgba(255,255,255,0.06);
+
+            color: white;
+
+            border:
+                1px solid var(--border);
+        }
+
+
+        /* LOADING */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: var(--muted);
+        }
+
+
+        /* ERROR */
+
+        .error {
+
+            width:
+                min(
+                    450px,
+                    calc(100% - 30px)
+                );
+
+            margin:
+                15vh auto;
+
+            padding: 35px;
+
+            text-align: center;
+
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+        }
+
+
+        .error-icon {
+
+            font-size: 42px;
+        }
+
+
+        .error h2 {
+
+            margin:
+                15px 0 8px;
+        }
+
+
+        .error p {
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        .error button {
+
+            margin-top: 10px;
+
+            padding:
+                12px 20px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: var(--accent);
+
+            font-weight: 900;
+
+            cursor: pointer;
+        }
+
+
+        .hidden {
+
+            display: none !important;
+        }
+
+
+        footer {
+
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-top: 25px;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 560px) {
+
+            .page {
+
+                width:
+                    calc(100% - 20px);
+
+                margin-top: 15px;
+            }
+
+
+            .card {
+
+                padding: 18px;
+
+                border-radius: 20px;
+            }
+
+
+            .header h1 {
+
+                font-size: 21px;
+            }
+
+
+            .status-title {
+
+                font-size: 20px;
+            }
+
+
+            .step {
+
+                font-size: 8px;
+            }
+
+
+            .circle {
+
+                width: 32px;
+
+                height: 32px;
+            }
+
+
+            .info-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .info.full {
+
+                grid-column: auto;
+            }
+
+
+            .actions {
+
+                flex-direction: column;
+            }
+
+            @keyframes statusNotificationIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translate(
+                -50%,
+                -20px
+            );
+    }
+
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translate(
+                -50%,
+                0
+            );
+    }
+}   
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div
+    id="mainPage"
+    class="page"
+>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div
+            class="logo"
+            id="restaurantLogo"
+        >
+            🍽️
+        </div>
+
+
+        <div>
+
+            <h1 id="restaurantName">
+                Your Restaurant
+            </h1>
+
+            <p>
+                Order Tracking
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ORDER NUMBER -->
+
+    <div class="card">
+
+        <div class="label">
+            ORDER NUMBER
+        </div>
+
+        <div
+            class="order-number"
+            id="orderNumber"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="card">
+
+        <div class="status-top">
+
+            <div>
+
+                <div class="label">
+                    ORDER STATUS
+                </div>
+
+                <h2
+                    class="status-title"
+                    id="statusTitle"
+                >
+                    Loading...
+                </h2>
+
+            </div>
+
+
+            <div
+                class="status-icon"
+                id="statusIcon"
+            >
+                ⏳
+            </div>
+
+        </div>
+
+
+        <p
+            class="status-message"
+            id="statusMessage"
+        >
+            Checking your order...
+        </p>
+
+
+        <div class="progress">
+
+            <div class="progress-bg"></div>
+
+            <div
+                class="progress-fill"
+                id="progressFill"
+            ></div>
+
+
+            <div
+                class="step"
+                data-step="1"
+            >
+
+                <div class="circle">
+                    ✓
+                </div>
+
+                <span>
+                    Confirmed
+                </span>
+
+            </div>
+
+
+            <div
+                class="step"
+                data-step="2"
+            >
+
+                <div class="circle">
+                    👨‍🍳
+                </div>
+
+                <span>
+                    Preparing
+                </span>
+
+            </div>
+
+
+            <div
+                class="step"
+                data-step="3"
+            >
+
+                <div class="circle">
+                    ✓
+                </div>
+
+                <span>
+                    Ready
+                </span>
+
+            </div>
+
+
+            <div
+                class="step"
+                data-step="4"
+            >
+
+                <div class="circle">
+                    ✓
+                </div>
+
+                <span>
+                    Completed
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ORDER DETAILS -->
+
+    <div class="card">
+
+        <div class="label">
+            ORDER DETAILS
+        </div>
+
+        <h2 class="section-title">
+            Your Items
+        </h2>
+
+
+        <div id="orderItems">
+
+            <div class="loading">
+                Loading your order...
+            </div>
+
+        </div>
+
+
+        <div class="bill">
+
+            <div class="bill-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="subtotal">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+
+            <div class="bill-row">
+
+                <span>
+                    Tax
+                </span>
+
+                <strong id="tax">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+
+            <div class="bill-total">
+
+                <span>
+                    TOTAL
+                </span>
+
+                <strong id="total">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- INFORMATION -->
+
+    <div class="card">
+
+        <div class="label">
+            ORDER INFORMATION
+        </div>
+
+
+        <div
+            class="info-grid"
+            id="orderInfo"
+        ></div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <div class="actions">
+
+        <button
+            id="printButton"
+        >
+            🖨️ Print Bill
+        </button>
+
+
+        <button
+            id="backButton"
+            class="secondary"
+        >
+            ← Back to Menu
+        </button>
+
+    </div>
+
+
+    <footer>
+        Thank you for ordering with us ❤️
+    </footer>
+
+</div>
+
+
+<!-- ERROR -->
+
+<div
+    id="errorPage"
+    class="error hidden"
+>
+
+    <div class="error-icon">
+        ⚠️
+    </div>
+
+    <h2>
+        Order Not Found
+    </h2>
+
+    <p>
+        We couldn't find this order.
+        Please check the order number.
+    </p>
+
+
+    <button
+        onclick="window.location.href='/'"
+    >
+        Back to Menu
+    </button>
+
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+
+<script>
+
+/* =====================================================
+   ORDER TRACKING
+===================================================== */
+
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const orderNumber =
+    params.get("order");
+
+
+let currentOrder = null;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+
+const mainPage =
+    document.getElementById(
+        "mainPage"
+    );
+
+
+const errorPage =
+    document.getElementById(
+        "errorPage"
+    );
+
+
+const restaurantName =
+    document.getElementById(
+        "restaurantName"
+    );
+
+
+const restaurantLogo =
+    document.getElementById(
+        "restaurantLogo"
+    );
+
+
+const orderNumberElement =
+    document.getElementById(
+        "orderNumber"
+    );
+
+
+const statusTitle =
+    document.getElementById(
+        "statusTitle"
+    );
+
+
+const statusIcon =
+    document.getElementById(
+        "statusIcon"
+    );
+
+
+const statusMessage =
+    document.getElementById(
+        "statusMessage"
+    );
+
+
+const progressFill =
+    document.getElementById(
+        "progressFill"
+    );
+
+
+const orderItems =
+    document.getElementById(
+        "orderItems"
+    );
+
+
+const subtotal =
+    document.getElementById(
+        "subtotal"
+    );
+
+
+const tax =
+    document.getElementById(
+        "tax"
+    );
+
+
+const total =
+    document.getElementById(
+        "total"
+    );
+
+
+const orderInfo =
+    document.getElementById(
+        "orderInfo"
+    );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+
+if (!orderNumber) {
+
+    showError();
+
+} else {
+
+    orderNumberElement.textContent =
+        "#" + orderNumber;
+
+    loadSettings();
+
+    loadOrder();
+}
+
+
+/* =====================================================
+   SOCKET.IO
+===================================================== */
+
+
+const socket =
+    io();
+
+
+socket.on(
+    "order-status-updated",
+    data => {
+
+        if (!currentOrder) {
+            return;
+        }
+
+
+        if (
+            Number(data.orderId) !==
+            Number(currentOrder.id)
+        ) {
+            return;
+        }
+
+
+        // Remember the previous status
+        const previousStatus =
+            currentOrder.status;
+
+
+        // Refresh the order
+        loadOrder();
+
+
+        // Show notification after status changes
+        if (
+            data.status &&
+            data.status !== previousStatus
+        ) {
+
+            showStatusNotification(
+                data.status
+            );
+        }
+
+    }
+);
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+
+async function loadSettings() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/settings",
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.success ||
+            !data.settings
+        ) {
+            return;
+        }
+
+
+        const settings =
+            data.settings;
+
+
+        if (
+            settings.restaurant_name
+        ) {
+
+            restaurantName.textContent =
+                settings.restaurant_name;
+        }
+
+
+        if (
+            settings.logo
+        ) {
+
+            restaurantLogo.innerHTML =
+                `
+                    <img
+                        src="${escapeHtml(
+                            settings.logo
+                        )}"
+                        alt="Restaurant logo"
+                    >
+                `;
+        }
+
+
+        document.title =
+            `${
+                settings.restaurant_name ||
+                "Restaurant"
+            } — Your Order`;
+
+    } catch (error) {
+
+        console.error(
+            "SETTINGS ERROR:",
+            error
+        );
+    }
+}
+
+
+/* =====================================================
+   LOAD ORDER
+===================================================== */
+
+
+async function loadOrder() {
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/orders/${encodeURIComponent(
+                    orderNumber
+                )}`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "ORDER RESPONSE:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.success ||
+            !data.order
+        ) {
+
+            showError();
+
+            return;
+        }
+
+
+        currentOrder =
+            data.order;
+
+
+        renderOrder(
+            currentOrder
+        );
+
+    } catch (error) {
+
+        console.error(
+            "ORDER ERROR:",
+            error
+        );
+
+        showError();
+    }
+}
+
+
+/* =====================================================
+   RENDER ORDER
+===================================================== */
+
+
+function renderOrder(order) {
+
+    orderNumberElement.textContent =
+        "#" + order.order_number;
+
+
+    renderStatus(
+        order.status
+    );
+
+
+    renderItems(
+        order.items || []
+    );
+
+
+    subtotal.textContent =
+        currency(
+            order.subtotal
+        );
+
+
+    tax.textContent =
+        currency(
+            order.tax
+        );
+
+
+    total.textContent =
+        currency(
+            order.total
+        );
+
+
+    renderInfo(
+        order
+    );
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+
+const statusData = {
+
+    new: {
+
+        title:
+            "Order Received",
+
+        icon:
+            "🧾",
+
+        message:
+            "Your order has been received. Waiting for the restaurant to confirm it.",
+
+        step:
+            0,
+
+        progress:
+            0
+    },
+
+
+    accepted: {
+
+        title:
+            "Order Confirmed",
+
+        icon:
+            "✓",
+
+        message:
+            "Your order has been confirmed by the restaurant.",
+
+        step:
+            1,
+
+        progress:
+            0
+    },
+
+
+    preparing: {
+
+        title:
+            "Preparing Your Order",
+
+        icon:
+            "👨‍🍳",
+
+        message:
+            "Our kitchen is preparing your food.",
+
+        step:
+            2,
+
+        progress:
+            33
+    },
+
+
+    ready: {
+
+        title:
+            "Order Ready",
+
+        icon:
+            "🍽️",
+
+        message:
+            "Your order is ready.",
+
+        step:
+            3,
+
+        progress:
+            66
+    },
+
+
+    completed: {
+
+        title:
+            "Order Completed",
+
+        icon:
+            "🎉",
+
+        message:
+            "Your order has been completed. Thank you for ordering!",
+
+        step:
+            4,
+
+        progress:
+            100
+    },
+
+
+    cancelled: {
+
+        title:
+            "Order Cancelled",
+
+        icon:
+            "✕",
+
+        message:
+            "This order has been cancelled by the restaurant.",
+
+        step:
+            -1,
+
+        progress:
+            0
+    }
+
+};
+
+
+function renderStatus(status) {
+
+    const config =
+        statusData[
+            status
+        ] ||
+        statusData.new;
+
+
+    statusTitle.textContent =
+        config.title;
+
+
+    statusIcon.textContent =
+        config.icon;
+
+
+    statusMessage.textContent =
+        config.message;
+
+
+    progressFill.style.width =
+    (config.progress * 0.8) + "%";
+
+
+    statusTitle.classList.toggle(
+        "cancelled",
+        status === "cancelled"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".step"
+        )
+        .forEach(
+            step => {
+
+                const number =
+                    Number(
+                        step.dataset.step
+                    );
+
+
+                step.classList.remove(
+                    "completed",
+                    "active"
+                );
+
+
+                if (
+                    config.step >=
+                    number
+                ) {
+
+                    step.classList.add(
+                        "completed"
+                    );
+                }
+
+
+                if (
+                    number ===
+                    config.step
+                ) {
+
+                    step.classList.add(
+                        "active"
+                    );
+                }
+            }
+        );
+}
+
+
+/* =====================================================
+   ITEMS
+===================================================== */
+
+
+function renderItems(items) {
+
+    if (!items.length) {
+
+        orderItems.innerHTML =
+            `
+                <div class="loading">
+                    No items found.
+                </div>
+            `;
+
+        return;
+    }
+
+
+    orderItems.innerHTML =
+        items
+            .map(
+                item => `
+                    <div class="item">
+
+                        <div class="item-left">
+
+                            <span class="quantity">
+                                ${Number(
+                                    item.quantity
+                                )} ×
+                            </span>
+
+                            <span>
+                                ${escapeHtml(
+                                    item.item_name
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <strong>
+                            ${currency(
+                                item.total
+                            )}
+                        </strong>
+
+                    </div>
+                `
+            )
+            .join("");
+}
+
+
+/* =====================================================
+   ORDER INFORMATION
+===================================================== */
+
+
+function renderInfo(order) {
+
+    const blocks = [];
+
+
+    if (
+        order.order_type ===
+        "dine_in"
+    ) {
+
+        blocks.push(
+            infoBlock(
+                "Order Type",
+                "🍽️ Dine In"
+            )
+        );
+
+
+        blocks.push(
+            infoBlock(
+                "Table",
+                `Table ${
+                    escapeHtml(
+                        order.table_number ||
+                        "—"
+                    )
+                }`
+            )
+        );
+
+    } else {
+
+        blocks.push(
+            infoBlock(
+                "Order Type",
+                "🥡 Takeaway"
+            )
+        );
+
+
+        if (
+            order.customer_name
+        ) {
+
+            blocks.push(
+                infoBlock(
+                    "Customer",
+                    escapeHtml(
+                        order.customer_name
+                    )
+                )
+            );
+        }
+
+
+        if (
+            order.customer_phone
+        ) {
+
+            blocks.push(
+                infoBlock(
+                    "Mobile",
+                    escapeHtml(
+                        order.customer_phone
+                    )
+                )
+            );
+        }
+
+
+        if (
+            order.pickup_time
+        ) {
+
+            blocks.push(
+                infoBlock(
+                    "Pickup Time",
+                    escapeHtml(
+                        order.pickup_time
+                    )
+                )
+            );
+        }
+    }
+
+
+    if (
+        order.notes
+    ) {
+
+        blocks.push(
+            `
+                <div class="info full">
+
+                    <span>
+                        Notes
+                    </span>
+
+                    <strong>
+                        ${escapeHtml(
+                            order.notes
+                        )}
+                    </strong>
+
+                </div>
+            `
+        );
+    }
+
+
+    orderInfo.innerHTML =
+        blocks.join("");
+}
+
+
+function infoBlock(
+    label,
+    value
+) {
+
+    return `
+        <div class="info">
+
+            <span>
+                ${label}
+            </span>
+
+            <strong>
+                ${value}
+            </strong>
+
+        </div>
+    `;
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+
+document
+    .getElementById(
+        "printButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!currentOrder) {
+                return;
+            }
+
+
+            printBill(
+                currentOrder
+            );
+        }
+    );
+
+
+function printBill(order) {
+
+    const items =
+        order.items
+            .map(
+                item => `
+                    <tr>
+
+                        <td>
+                            ${Number(
+                                item.quantity
+                            )} ×
+                            ${escapeHtml(
+                                item.item_name
+                            )}
+                        </td>
+
+                        <td>
+                            ₹${Number(
+                                item.total
+                            ).toFixed(2)}
+                        </td>
+
+                    </tr>
+                `
+            )
+            .join("");
+
+
+    const type =
+        order.order_type ===
+        "dine_in"
+
+            ? `Dine In — Table ${
+                escapeHtml(
+                    order.table_number ||
+                    "—"
+                )
+            }`
+
+            : "Takeaway";
+
+
+    const win =
+        window.open(
+            "",
+            "_blank",
+            "width=600,height=800"
+        );
+
+
+    if (!win) {
+
+        alert(
+            "Please allow pop-ups to print the bill."
+        );
+
+        return;
+    }
+
+
+    win.document.write(
+        `
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>
+                Bill ${escapeHtml(
+                    order.order_number
+                )}
+            </title>
+
+            <style>
+
+                body {
+
+                    font-family:
+                        Arial,
+                        sans-serif;
+
+                    max-width:
+                        600px;
+
+                    margin:
+                        auto;
+
+                    padding:
+                        30px;
+
+                    color:
+                        #111;
+                }
+
+
+                h1 {
+                    text-align:
+                        center;
+                }
+
+
+                .center {
+                    text-align:
+                        center;
+                }
+
+
+                table {
+
+                    width:
+                        100%;
+
+                    border-collapse:
+                        collapse;
+
+                    margin-top:
+                        25px;
+                }
+
+
+                td {
+
+                    padding:
+                        10px 0;
+
+                    border-bottom:
+                        1px solid #ddd;
+                }
+
+
+                td:last-child {
+
+                    text-align:
+                        right;
+                }
+
+
+                .row {
+
+                    display:
+                        flex;
+
+                    justify-content:
+                        space-between;
+
+                    padding:
+                        8px 0;
+                }
+
+
+                .total {
+
+                    margin-top:
+                        10px;
+
+                    padding-top:
+                        12px;
+
+                    border-top:
+                        2px solid #111;
+
+                    font-size:
+                        20px;
+
+                    font-weight:
+                        bold;
+                }
+
+
+                .thanks {
+
+                    margin-top:
+                        30px;
+
+                    text-align:
+                        center;
+                }
+
+            </style>
+
+        </head>
+
+
+        <body>
+
+            <h1>
+                ${escapeHtml(
+                    restaurantName.textContent
+                )}
+            </h1>
+
+
+            <div class="center">
+
+                <strong>
+                    ORDER #${escapeHtml(
+                        order.order_number
+                    )}
+                </strong>
+
+                <p>
+                    ${type}
+                </p>
+
+            </div>
+
+
+            <table>
+
+                ${items}
+
+            </table>
+
+
+            <div class="row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹${Number(
+                        order.subtotal
+                    ).toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="row">
+
+                <span>
+                    Tax
+                </span>
+
+                <strong>
+                    ₹${Number(
+                        order.tax
+                    ).toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="row total">
+
+                <span>
+                    TOTAL
+                </span>
+
+                <strong>
+                    ₹${Number(
+                        order.total
+                    ).toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="thanks">
+                Thank you for ordering ❤️
+            </div>
+
+
+            <script>
+
+                window.onload = function() {
+
+                    setTimeout(
+                        function() {
+
+                            window.print();
+
+                        },
+                        300
+                    );
+
+                };
+
+            <\/script>
+
+        </body>
+
+        </html>
+        `
+    );
+
+
+    win.document.close();
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+
+document
+    .getElementById(
+        "backButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "/";
+        }
+    );
+
+
+
+function showStatusNotification(status) {
+
+    const messages = {
+
+        accepted:
+            "✓ Your order has been confirmed!",
+
+        preparing:
+            "👨‍🍳 Your order is being prepared!",
+
+        ready:
+            "🍽️ Your order is ready!",
+
+        completed:
+            "🎉 Your order is completed. Thank you!",
+
+        cancelled:
+            "⚠️ Your order has been cancelled."
+
+    };
+
+
+    const message =
+        messages[status];
+
+
+    if (!message) {
+        return;
+    }
+
+
+    // Remove an existing notification
+    const oldNotification =
+        document.getElementById(
+            "statusNotification"
+        );
+
+
+    if (oldNotification) {
+        oldNotification.remove();
+    }
+
+
+    const notification =
+        document.createElement(
+            "div"
+        );
+
+
+    notification.id =
+        "statusNotification";
+
+
+    notification.textContent =
+        message;
+
+
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+
+        width: min(
+            90%,
+            420px
+        );
+
+        padding: 15px 18px;
+
+        border-radius: 16px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #ffb16b,
+                #ff943f
+            );
+
+        color: #111;
+
+        font-size: 13px;
+
+        font-weight: 900;
+
+        text-align: center;
+
+        box-shadow:
+            0 15px 40px
+            rgba(0,0,0,0.35);
+
+        animation:
+            statusNotificationIn
+            0.35s ease;
+    `;
+
+
+    document.body.appendChild(
+        notification
+    );
+
+
+    setTimeout(
+        () => {
+
+            notification.style.opacity =
+                "0";
+
+            notification.style.transform =
+                "translate(-50%, -15px)";
+
+            notification.style.transition =
+                "0.3s ease";
+
+
+            setTimeout(
+                () => {
+
+                    notification.remove();
+
+                },
+                300
+            );
+
+        },
+        3000
+    );
+}
+
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+
+function currency(value) {
+
+    return (
+        "₹" +
+        Number(
+            value || 0
+        ).toFixed(2)
+    );
+}
+
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+
+function showError() {
+
+    mainPage.classList.add(
+        "hidden"
+    );
+
+
+    errorPage.classList.remove(
+        "hidden"
+    );
+}
+
+</script>
+
+
+</body>
+
+</html>

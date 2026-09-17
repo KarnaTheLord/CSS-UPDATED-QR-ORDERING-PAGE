@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Restaurant Admin</title>
+
+    <link
+        rel="stylesheet"
+        href="/admin/css/admin.css"
+    >
+
+</head>
+
+
+<body class="admin-page">
+
+    <main class="admin-wrapper">
+
+        <header class="admin-header">
+
+            <div>
+
+                <h1>
+                    Restaurant Dashboard
+                </h1>
+
+                <p id="welcomeText">
+                    Manage your menu
+                </p>
+
+            </div>
+
+
+            <button
+                class="logout-button"
+                id="logoutButton"
+                type="button"
+            >
+                Logout
+            </button>
+
+        </header>
+
+        <!-- =====================================================
+            RESTAURANT QR CODE
+        ===================================================== -->
+
+        <section class="qr-panel admin-panel">
+
+            <div class="qr-panel-content">
+
+                <div class="qr-panel-info">
+
+                    <span class="orders-kicker">
+                        ONE QR FOR YOUR RESTAURANT
+                    </span>
+
+                    <h2>
+                        Restaurant QR Code
+                    </h2>
+
+                    <p>
+                        Customers can scan this QR to open
+                        your menu, add items to cart and
+                        place their order.
+                    </p>
+
+
+                    <div class="qr-url-box">
+
+                        <span>
+                            MENU LINK
+                        </span>
+
+                        <strong id="restaurantQrUrl">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="qr-actions">
+
+                        <button
+                            type="button"
+                            class="order-status-button primary"
+                            id="downloadQrButton"
+                        >
+                            ↓ Download QR
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="order-status-button"
+                            id="printQrButton"
+                        >
+                            🖨️ Print QR
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="order-status-button"
+                            id="copyQrLinkButton"
+                        >
+                            🔗 Copy Menu Link
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="qr-preview-card">
+
+                    <div
+                        id="restaurantQr"
+                        class="restaurant-qr"
+                    ></div>
+
+
+                    <strong>
+                        Scan to Order
+                    </strong>
+
+                    <span>
+                        Dine In • Takeaway
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+                <!-- =====================================================
+                                    RESTAURANT PROFILE
+                ===================================================== -->
+
+        <section class="admin-panel restaurant-profile-panel">
+
+            <div class="orders-header">
+
+                <div>
+
+                    <span class="orders-kicker">
+                        RESTAURANT SETTINGS
+                    </span>
+
+                    <h2>
+                        Restaurant Profile
+                    </h2>
+
+                    <p>
+                        Manage the information customers see.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="restaurantProfileForm">
+
+                <div class="profile-grid">
+
+                    <!-- LOGO -->
+
+                    <div class="admin-field profile-logo-field">
+
+                        <label>
+                            Restaurant Logo
+                        </label>
+
+                        <div class="logo-preview-wrapper">
+
+                            <div
+                                id="restaurantLogoPreview"
+                                class="restaurant-logo-preview"
+                            >
+                                🍽️
+                            </div>
+
+                            <div class="logo-input-area">
+
+                                <input
+                                    id="restaurantLogo"
+                                    type="url"
+                                    placeholder="https://example.com/logo.png"
+                                >
+
+                                <small>
+                                    Enter a logo URL or upload one from your computer.
+                                </small>
+
+
+                                <div class="logo-upload-divider">
+                                    <span>OR</span>
+                                </div>
+
+
+                                <label
+                                    for="restaurantLogoFile"
+                                    class="logo-upload-button"
+                                >
+                                    📁 Choose Logo From Computer
+                                </label>
+
+
+                                <input
+                                    id="restaurantLogoFile"
+                                    type="file"
+                                    accept="image/png,image/jpeg,image/jpg,image/webp"
+                                    hidden
+                                >
+
+
+                                <div
+                                    id="restaurantLogoUploadStatus"
+                                    class="logo-upload-status"
+                                ></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- NAME -->
+
+                    <div class="admin-field">
+
+                        <label>
+                            Restaurant Name
+                        </label>
+
+                        <input
+                            id="restaurantName"
+                            type="text"
+                            placeholder="Your Restaurant Name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="admin-field profile-full">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea
+                            id="restaurantDescription"
+                            rows="4"
+                            placeholder="Tell customers about your restaurant..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="admin-field">
+
+                        <label>
+                            Phone
+                        </label>
+
+                        <input
+                            id="restaurantPhone"
+                            type="tel"
+                            placeholder="+91 XXXXX XXXXX"
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="admin-field">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            id="restaurantEmail"
+                            type="email"
+                            placeholder="restaurant@example.com"
+                        >
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="admin-field profile-full">
+
+                        <label>
+                            Address
+                        </label>
+
+                        <textarea
+                            id="restaurantAddress"
+                            rows="3"
+                            placeholder="Restaurant address"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- OPENING HOURS -->
+
+                    <div class="admin-field">
+
+                        <label>
+                            Opening Hours
+                        </label>
+
+                        <input
+                            id="restaurantHours"
+                            type="text"
+                            placeholder="10:00 AM - 10:00 PM"
+                        >
+
+                    </div>
+
+
+                    <!-- TAX -->
+
+                    <div class="admin-field">
+
+                        <label>
+                            Tax Rate (%)
+                        </label>
+
+                        <input
+                            id="restaurantTax"
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="0.01"
+                            placeholder="5"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-actions">
+
+                    <button
+                        type="submit"
+                        class="admin-primary"
+                        id="saveRestaurantProfile"
+                    >
+                        💾 Save Restaurant Profile
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- =====================================================
+                            ADMIN ACCOUNT SECURITY
+        ===================================================== -->
+
+        <section class="admin-panel admin-account-panel">
+
+            <div class="orders-header">
+                <div>
+                    <span class="orders-kicker">ADMIN SECURITY</span>
+                    <h2>Admin Account</h2>
+                    <p>Change your username, password or recovery email.</p>
+                </div>
+            </div>
+
+            <form id="adminAccountForm">
+                <div class="profile-grid">
+
+                    <div class="admin-field">
+                        <label for="adminAccountUsername">Username</label>
+                        <input
+                            id="adminAccountUsername"
+                            type="text"
+                            required
+                            minlength="3"
+                            maxlength="40"
+                            autocomplete="username"
+                        >
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="adminRecoveryEmail">Recovery Email</label>
+                        <input
+                            id="adminRecoveryEmail"
+                            type="email"
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="adminCurrentPassword">Current Password</label>
+                        <input
+                            id="adminCurrentPassword"
+                            type="password"
+                            required
+                            autocomplete="current-password"
+                            placeholder="Required to save changes"
+                        >
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="adminNewPassword">New Password <span>(optional)</span></label>
+                        <input
+                            id="adminNewPassword"
+                            type="password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            placeholder="Leave blank to keep current password"
+                        >
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="adminConfirmPassword">Confirm New Password</label>
+                        <input
+                            id="adminConfirmPassword"
+                            type="password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            placeholder="Only needed when changing password"
+                        >
+                    </div>
+
+                </div>
+
+                <p id="adminAccountMessage" class="success-message"></p>
+                <p id="adminAccountError" class="error-message"></p>
+
+                <div class="profile-actions">
+                    <button
+                        type="submit"
+                        class="admin-primary"
+                        id="saveAdminAccount"
+                    >
+                        🔐 Save Admin Account
+                    </button>
+                </div>
+            </form>
+
+        </section>
+
+
+
+                <!-- =====================================================
+                                    ORDERS
+                ===================================================== -->
+
+        <section class="orders-panel admin-panel">
+
+            <!-- =====================================================
+     TODAY'S ORDER SUMMARY
+===================================================== -->
+
+    <div
+        class="order-summary"
+        id="orderSummary"
+    >
+
+        <div class="summary-card">
+
+            <span class="summary-icon">
+                🧾
+            </span>
+
+            <div>
+                <small>
+                    TODAY'S ORDERS
+                </small>
+
+                <strong id="summaryOrders">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+
+    <div class="summary-card">
+
+        <span class="summary-icon">
+            💰
+        </span>
+
+        <div>
+            <small>
+                TODAY'S REVENUE
+            </small>
+
+            <strong id="summaryRevenue">
+                ₹0.00
+            </strong>
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <span class="summary-icon">
+            📈
+        </span>
+
+        <div>
+            <small>
+                THIS WEEK REVENUE
+            </small>
+
+            <strong id="summaryWeekRevenue">
+                ₹0.00
+            </strong>
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <span class="summary-icon">
+            🗓️
+        </span>
+
+        <div>
+            <small>
+                THIS MONTH REVENUE
+            </small>
+
+            <strong id="summaryMonthRevenue">
+                ₹0.00
+            </strong>
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <span class="summary-icon">
+            🔥
+        </span>
+
+        <div>
+            <small>
+                PENDING ORDERS
+            </small>
+
+            <strong id="summaryPending">
+                0
+            </strong>
+        </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <span class="summary-icon">
+            ✅
+        </span>
+
+        <div>
+            <small>
+                COMPLETED
+            </small>
+
+            <strong id="summaryCompleted">
+                0
+            </strong>
+        </div>
+
+    </div>
+
+</div>
+
+            <div class="orders-header">
+
+                <div>
+
+                    <span class="orders-kicker">
+                        LIVE ORDERS
+                    </span>
+
+                    <h2>
+                        Orders
+                    </h2>
+
+                    <p>
+                        New orders appear automatically.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="live-indicator"
+                    id="liveIndicator"
+                >
+                    <span></span>
+                    LIVE
+                </div>
+
+            </div>
+
+
+            <div
+                class="orders-list"
+                id="ordersList"
+            >
+
+                <div class="orders-empty">
+
+                    <div>
+                        🍽️
+                    </div>
+
+                    <strong>
+                        No orders yet
+                    </strong>
+
+                    <p>
+                        New customer orders will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="admin-grid">
+
+
+            <!-- CATEGORY PANEL -->
+
+            <div class="admin-panel">
+
+                <h2>
+                    Categories
+                </h2>
+
+                <p>
+                    Organize your menu.
+                </p>
+
+
+                <form id="categoryForm">
+
+                    <div class="admin-field">
+
+                        <label>
+                            New Category
+                        </label>
+
+                        <input
+                            id="categoryName"
+                            type="text"
+                            placeholder="e.g. Starters"
+                            required
+                        >
+
+                        <div class="admin-field">
+
+                            <label>
+                                Category Type
+                            </label>
+
+                            <select id="categoryType">
+
+                                <option value="restaurant">
+                                    🍽️ Restaurant
+                                </option>
+
+                                <option value="cafe">
+                                    ☕ Café
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="admin-primary"
+                        type="submit"
+                    >
+                        + Add Category
+                    </button>
+
+                </form>
+
+
+                <div
+                    class="category-list"
+                    id="categoryList"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- MENU PANEL -->
+
+            <div class="admin-panel">
+
+                <h2>
+                    Menu Items
+                </h2>
+
+                <p>
+                    Add the food customers can order.
+                </p>
+
+
+                <form id="menuForm">
+
+
+                    <div class="admin-field">
+
+                        <label>
+                            Category
+                        </label>
+
+                        <select
+                            id="menuCategory"
+                            required
+                        >
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="admin-field">
+
+                        <label>
+                            Food Name
+                        </label>
+
+                        <input
+                            id="menuName"
+                            type="text"
+                            placeholder="Chicken Biryani"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="admin-field">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea
+                            id="menuDescription"
+                            placeholder="A delicious description..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="admin-field">
+
+                        <label>
+                            Price
+                        </label>
+
+                        <input
+                            id="menuPrice"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="280"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="admin-field">
+
+                        <label>
+                            Image URL
+                        </label>
+
+                        <input
+                            id="menuImage"
+                            type="url"
+                            placeholder="https://..."
+                        >
+
+                        <div
+                            id="menuImagePreview"
+                            class="menu-image-preview"
+                            style="display: none;"
+                        >
+
+                            <img
+                                id="menuImagePreviewImg"
+                                src=""
+                                alt="Food preview"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="admin-field">
+
+                        <label>
+                            Food Type
+                        </label>
+
+                        <select id="menuVeg">
+
+                            <option value="1">
+                                Vegetarian
+                            </option>
+
+                            <option value="0">
+                                Non-Vegetarian
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="menu-form-actions">
+
+                        <button
+                            class="admin-primary"
+                            type="submit"
+                            id="menuSubmitButton"
+                        >
+                            + Add Food Item
+                        </button>
+
+                        <button
+                            class="small-button"
+                            type="button"
+                            id="cancelMenuEditButton"
+                            style="display:none;"
+                        >
+                            Cancel Edit
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <div
+                    class="menu-list"
+                    id="menuList"
+                >
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+   <script src="/socket.io/socket.io.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="/admin/js/dashboard.js"></script>
+
+</html>
