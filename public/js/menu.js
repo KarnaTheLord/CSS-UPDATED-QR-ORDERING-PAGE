@@ -1168,6 +1168,15 @@ function updateCartUI() {
 
     }
 
+    if (sidebarCartButton) {
+
+    sidebarCartButton.classList.toggle(
+        "cart-attention",
+        totalQuantity > 0
+    );
+
+}
+
 
     /*
      * Keep existing cart counter

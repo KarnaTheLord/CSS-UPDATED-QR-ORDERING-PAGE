@@ -5291,3 +5291,392 @@ button {
     }
 
 }
+
+/* =====================================================
+   PREMIUM MOBILE BOTTOM NAV
+   ALL BUTTONS SAME STYLE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .client-sidebar {
+        padding:
+            8px
+            8px
+            calc(8px + env(safe-area-inset-bottom));
+
+        gap: 8px;
+
+        background:
+            rgba(12, 8, 7, 0.97);
+
+        border-top:
+            1px solid
+            rgba(255,255,255,0.08);
+
+        box-shadow:
+            0 -10px 30px
+            rgba(0,0,0,0.35);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+
+    .sidebar-section {
+        gap: 8px !important;
+    }
+
+
+    /* Every navigation button */
+
+    .sidebar-link {
+        min-width: 72px !important;
+        min-height: 62px !important;
+
+        padding:
+            8px
+            7px !important;
+
+        border-radius: 14px !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        justify-content: center !important;
+        align-items: center !important;
+
+        gap: 5px !important;
+
+        background:
+            linear-gradient(
+                135deg,
+                #ff9e4f,
+                #ff7430
+            ) !important;
+
+        color: #17100c !important;
+
+        box-shadow:
+            0 7px 18px
+            rgba(255,95,25,0.20) !important;
+
+        border:
+            1px solid
+            rgba(255,255,255,0.08);
+
+        transform: none !important;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            filter 0.2s ease;
+    }
+
+
+    /* Icons */
+
+    .sidebar-link span {
+        font-size: 19px !important;
+        line-height: 1 !important;
+
+        color: #17100c !important;
+    }
+
+
+    /* Text */
+
+    .sidebar-link {
+        font-size: 10px !important;
+        font-weight: 800 !important;
+
+        letter-spacing:
+            0.1px;
+    }
+
+
+    /* Make active button use exactly the same style */
+
+    .sidebar-link.active {
+        background:
+            linear-gradient(
+                135deg,
+                #ff9e4f,
+                #ff7430
+            ) !important;
+
+        color: #17100c !important;
+
+        box-shadow:
+            0 7px 18px
+            rgba(255,95,25,0.20) !important;
+    }
+
+
+    /* Press effect */
+
+    .sidebar-link:active {
+        transform:
+            scale(0.95) !important;
+
+        box-shadow:
+            0 4px 10px
+            rgba(255,95,25,0.16) !important;
+    }
+
+
+    /* Cart badge */
+
+    .sidebar-cart-badge,
+    #sidebarCartCount {
+        background:
+            #19130f !important;
+
+        color:
+            #ffad68 !important;
+
+        border:
+            1px solid
+            rgba(255,255,255,0.12);
+
+        box-shadow:
+            0 3px 10px
+            rgba(0,0,0,0.25);
+    }
+}
+
+/* =====================================================
+   PERFECT MOBILE BOTTOM NAVIGATION
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .client-sidebar {
+        position: fixed !important;
+
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        top: auto !important;
+
+        width: 100% !important;
+        height: 82px !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) !important;
+
+        align-items: center !important;
+
+        gap: 6px !important;
+
+        padding:
+            7px
+            7px
+            calc(7px + env(safe-area-inset-bottom))
+            !important;
+
+        overflow: hidden !important;
+
+        background:
+            rgba(12, 8, 7, 0.98) !important;
+
+        border-top:
+            1px solid
+            rgba(255,255,255,0.08) !important;
+
+        box-shadow:
+            0 -10px 30px
+            rgba(0,0,0,0.38) !important;
+
+        backdrop-filter: blur(18px) !important;
+        -webkit-backdrop-filter: blur(18px) !important;
+
+        z-index: 500 !important;
+    }
+
+
+    /* Hide desktop-only sidebar content */
+
+    .sidebar-brand,
+    .sidebar-heading,
+    .sidebar-bottom,
+    .sidebar-promo {
+        display: none !important;
+    }
+
+
+    /* Remove section layout interference */
+
+    .sidebar-section {
+        display: contents !important;
+    }
+
+
+    /* Every button gets exactly the same space */
+
+    .sidebar-link {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: 64px !important;
+        min-height: 64px !important;
+
+        margin: 0 !important;
+
+        padding:
+            7px
+            3px !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        justify-content: center !important;
+        align-items: center !important;
+
+        gap: 5px !important;
+
+        border-radius: 14px !important;
+
+        background:
+            linear-gradient(
+                135deg,
+                #ff9e4f,
+                #ff7430
+            ) !important;
+
+        color: #17100c !important;
+
+        box-shadow:
+            0 7px 18px
+            rgba(255,95,25,0.20) !important;
+
+        font-size: 10px !important;
+        font-weight: 800 !important;
+
+        line-height: 1 !important;
+
+        text-align: center !important;
+
+        white-space: nowrap !important;
+    }
+
+
+    /* Icons */
+
+    .sidebar-link > span {
+        display: block !important;
+
+        font-size: 18px !important;
+
+        line-height: 1 !important;
+
+        color: #17100c !important;
+    }
+
+
+    /* Remove active-button size difference */
+
+    .sidebar-link.active {
+        width: 100% !important;
+
+        background:
+            linear-gradient(
+                135deg,
+                #ff9e4f,
+                #ff7430
+            ) !important;
+
+        color: #17100c !important;
+
+        box-shadow:
+            0 7px 18px
+            rgba(255,95,25,0.20) !important;
+    }
+
+
+    /* Press animation */
+
+    .sidebar-link:active {
+        transform: scale(0.96) !important;
+    }
+
+
+    /* Cart badge */
+
+    #sidebarCartCount {
+        position: absolute !important;
+
+        margin-left: 18px !important;
+        margin-top: -8px !important;
+
+        min-width: 18px !important;
+        height: 18px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        border-radius: 50% !important;
+
+        background: #17100c !important;
+
+        color: #ffad68 !important;
+
+        font-size: 9px !important;
+        font-weight: 900 !important;
+
+        border:
+            1px solid
+            rgba(255,255,255,0.12) !important;
+    }
+
+
+    /* Keep website content above navbar */
+
+    .client-main {
+        padding-bottom: 100px !important;
+    }
+}
+
+/* =====================================================
+   CART ATTENTION ANIMATION
+===================================================== */
+
+@keyframes cartShineBlink {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+        box-shadow:
+            0 7px 18px rgba(255, 95, 25, 0.20);
+    }
+
+    50% {
+        transform: scale(1.07);
+        filter: brightness(1.35);
+
+        box-shadow:
+            0 0 0 4px rgba(255, 170, 90, 0.18),
+            0 0 22px rgba(255, 120, 40, 0.75),
+            0 10px 28px rgba(255, 95, 25, 0.45);
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    #sidebarCartButton.cart-attention {
+        animation:
+            cartShineBlink 0.9s ease-in-out infinite;
+
+        position: relative;
+        z-index: 2;
+    }
+
+}
