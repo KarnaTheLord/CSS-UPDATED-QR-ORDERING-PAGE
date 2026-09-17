@@ -3775,7 +3775,6 @@ button {
         0 30px 70px
         rgba(0,0,0,0.32);
 
-    isolation: isolate;
 }
 
 .client-topbar {
@@ -4349,25 +4348,142 @@ button {
 @media (max-width: 900px) {
 
     .client-layout {
-        grid-template-columns: 1fr;
+        display: block;
+        width: 100%;
+        min-height: 100vh;
     }
 
 
+    /* =========================================
+       MOBILE BOTTOM NAVIGATION
+    ========================================= */
+
     .client-sidebar {
+        position: fixed;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+
+        width: 100%;
+        height: 82px;
+
+        padding:
+            8px
+            8px
+            calc(8px + env(safe-area-inset-bottom));
+
+        display: flex;
+        flex-direction: row;
+
+        align-items: stretch;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(27,12,5,0.98),
+                rgba(13,9,7,0.99)
+            );
+
+        border-right: none;
+
+        border-top:
+            1px solid
+            rgba(255,255,255,0.08);
+
+        box-shadow:
+            0 -12px 35px
+            rgba(0,0,0,0.38);
+
+        backdrop-filter:
+            blur(18px);
+
+        -webkit-backdrop-filter:
+            blur(18px);
+
+        z-index: 1000;
+    }
+
+
+    /* Hide desktop-only elements */
+
+    .sidebar-brand,
+    .sidebar-heading,
+    .sidebar-promo {
         display: none;
     }
 
 
-    .client-main {
-        padding:
-            0
-            15px
-            120px;
+    /* Each section becomes horizontal */
+
+    .sidebar-section {
+        margin: 0;
+
+        display: flex;
+        flex-direction: row;
+
+        align-items: stretch;
+
+        gap: 6px;
+
+        flex-shrink: 0;
     }
 
 
-    .client-topbar {
-        height: 62px;
+    /* Mobile navigation items */
+
+    .sidebar-link {
+        min-width: 72px;
+        min-height: 62px;
+
+        padding:
+            7px
+            8px;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        gap: 4px;
+
+        border-radius: 12px;
+
+        font-size: 10px;
+
+        white-space: nowrap;
+
+        flex-shrink: 0;
+    }
+
+
+    .sidebar-link span {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+
+    .sidebar-link.active {
+        box-shadow:
+            0 6px 18px
+            rgba(255,95,25,0.24);
+    }
+
+
+    /* Keep page content above bottom nav */
+
+    .client-main {
+        width: 100%;
+
+        padding:
+            0
+            15px
+            105px;
     }
 
 
@@ -4466,6 +4582,60 @@ button {
 
     .tag-two {
         right: 2px;
+    }
+
+        /* =========================================
+       FIX MOBILE NAV ITEMS
+    ========================================= */
+
+    .client-sidebar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        gap: 8px;
+    }
+
+    .sidebar-section {
+        display: flex !important;
+        flex-direction: row !important;
+
+        align-items: center;
+
+        flex: 0 0 auto;
+        width: auto !important;
+
+        margin: 0 !important;
+        gap: 6px;
+    }
+
+    .sidebar-link {
+        width: auto !important;
+        min-width: 68px;
+        flex: 0 0 68px;
+
+        height: 62px;
+        min-height: 62px;
+
+        padding: 6px 8px;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        gap: 5px;
+
+        white-space: nowrap;
+    }
+
+    .sidebar-link span {
+        font-size: 18px;
+        line-height: 1;
     }
 
 }
@@ -5046,6 +5216,78 @@ button {
 
     .track-order-card {
         padding: 14px;
+    }
+
+}
+
+/* =====================================================
+   MOBILE OVERLAY PRIORITY
+===================================================== */
+
+.cart-overlay,
+.checkout-overlay,
+.success-overlay {
+    z-index: 2000 !important;
+}
+
+/* =====================================================
+   MOBILE NAV + MODAL LAYER FIX
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .client-sidebar {
+        z-index: 500 !important;
+    }
+
+    .cart-overlay,
+    .checkout-overlay,
+    .success-overlay {
+        z-index: 5000 !important;
+    }
+
+}
+
+/* =====================================================
+   MOBILE MODAL LAYER FIX
+===================================================== */
+
+.cart-overlay,
+.checkout-overlay,
+.success-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+}
+
+.cart-backdrop {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+}
+
+.cart-panel,
+.checkout-panel {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+@media (max-width: 900px) {
+
+    .client-sidebar {
+        z-index: 500 !important;
+    }
+
+}
+
+/* =====================================================
+   HIDE FLOATING CART ON MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .floating-cart {
+        display: none !important;
     }
 
 }
